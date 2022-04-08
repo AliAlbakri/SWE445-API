@@ -51,7 +51,7 @@ class test(Resource):
         id = user_collection.insert_one(obj).inserted_id
 
         print(id)
-        return {"id":id} ,200
+        return str(id),200
 
 
 
@@ -63,4 +63,3 @@ api.add_resource(test,'/post')
 if __name__ == "__main__":
     app.run(debug=True)
 
-# https://backend-advenerice.herokuapp.com/
