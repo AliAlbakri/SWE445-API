@@ -58,6 +58,8 @@ class test(Resource):
 
 
 
+api.add_resource(test,'/post')
+
 if __name__ == "__main__":
     app.run(debug=True)
 
