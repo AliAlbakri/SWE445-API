@@ -46,7 +46,7 @@ class test(Resource):
 
     def post(self):
 
-        obj = {'name':'ali'}
+        obj = {'name':'ali '}
 
         id = user_collection.insert_one(obj).inserted_id
 
