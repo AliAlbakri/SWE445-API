@@ -51,7 +51,7 @@ class test(Resource):
         id = user_collection.insert_one(obj).inserted_id
 
         print(id)
-        return id,200
+        return {"id":id} ,200
 
 
 
