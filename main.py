@@ -137,7 +137,7 @@ class ShoopingCart(Resource):
 
         shopping_cart_collection.insert_one(user_cart)
 
-        return {"msg":'items have been purchased successfully '},200
+        return {"msg":'items have been purchased successfullly'},200
 
 
 
