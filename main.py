@@ -67,7 +67,7 @@ class Profile(Resource):
 
 
     def post(self):
-        # needs to capture ccv
+        # needs to capture ccvvv
         # {'email':'',
         #  "password":"",
         #  "confirmed_password":"",
