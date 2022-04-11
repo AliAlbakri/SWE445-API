@@ -93,7 +93,7 @@ class Profile(Resource):
             else:
 
 
-                del new_user['confirmed_password'],new_user['ccv']
+                del new_user['confirmed_password']
                 new_user["password"] = hashlib.sha256(new_user["password"].encode("utf-8")).hexdigest()  # encrpt password
                 new_user["card_number"] = hashlib.sha256(new_user["card_number"].encode("utf-8")).hexdigest()  # encrpt card number
                 user_collection.insert_one(new_user)
