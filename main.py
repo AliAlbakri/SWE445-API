@@ -28,6 +28,24 @@ def home():
 
 # the fun starts here .....
 
+jwt = JWTManager(app) # initialize JWTManager
+app.config['JWT_SECRET_KEY'] = 'Your_Secret_Key'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1) # define the life span of the token
+
+
+api = Api(app)
+db_username = 'adveneerice'
+db_password = 'adveneerice123'
+db_name = 'adveneericeDB'
+cluster = MongoClient(
+    'mongodb+srv://adveneerice:adveneerice123@cluster0.blq7j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+
+
+db = cluster['SWE445']
+user_collection = db['Users']
+shopping_cart_collection = db['Shopping_cart']
+items_collection = db['items']
+
 
 
 
@@ -176,6 +194,19 @@ api.add_resource(Profile,'/sign_up','/get_profile')
 
 
 
+
+
+#utilities
+
+def getProfile(current_user):
+    #needs to sent authorization body with the request
+        user_from_db = user_collection.find_one({'email': current_user})
+
+        if user_from_db:
+            del user_from_db['password']  # delete data we don't want to return
+            return user_from_db
+        else:
+            return None
 
 
 
