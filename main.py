@@ -117,45 +117,45 @@ class Login(Resource):
 
 
 
-#
-# class ShoopingCart(Resource):
-#
-#
-#     def post(self):
-#         user_cart = request.get_json()  # store the json body request
-#
-#         items_arr = user_cart['items']
-#         total_bill_amount = 0
-#
-#         for item in items_arr :
-#             item['total_price'] = int(item['item_price'] )* int(item['quantity'])
-#
-#         for item in items_arr :
-#             total_bill_amount += int(item['total_price'])
-#
-#         user_cart['total_bill'] = total_bill_amount
-#
-#         shopping_cart_collection.insert_one(user_cart)
-#
-#         return {"msg":'items have been purchased successfullly'},200
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# api.add_resource(ShoopingCart,'/checkout')
+
+class ShoopingCart(Resource):
+
+
+    def post(self):
+        user_cart = request.get_json()  #   store the json body request
+
+        items_arr = user_cart['items']
+        total_bill_amount = 0
+
+        for item in items_arr :
+            item['total_price'] = int(item['item_price'] )* int(item['quantity'])
+
+        for item in items_arr :
+            total_bill_amount += int(item['total_price'])
+
+        user_cart['total_bill'] = total_bill_amount
+
+        shopping_cart_collection.insert_one(user_cart)
+
+        return {"msg":'items have been purchased successfullly'},200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+api.add_resource(ShoopingCart,'/checkout')
 
 
 api.add_resource(Login,'/login')
