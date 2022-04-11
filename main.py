@@ -92,9 +92,10 @@ class Profile(Resource):
                 return {'msg': 'passwords are inconsistent'}, 409
             else:
 
+
                 del new_user['confirmed_password'],new_user['ccv']
                 new_user["password"] = hashlib.sha256(new_user["password"].encode("utf-8")).hexdigest()  # encrpt password
-                new_user["card_number"] = hashlib.sha256(new_user["card_number"].encode("utf-8")).hexdigest()  # encrpt card
+                new_user["card_number"] = hashlib.sha256(new_user["card_number"].encode("utf-8")).hexdigest()  # encrpt card number
                 user_collection.insert_one(new_user)
                 return {'msg': 'User created successfully'}, 201
         else:
@@ -138,9 +139,12 @@ class ShoopingCart(Resource):
 
         user_cart['total_bill'] = total_bill_amount
 
+        # assuming cvv has been sent to the gateway
+        del user_cart['cvv']
+
         shopping_cart_collection.insert_one(user_cart)
 
-        return {"msg":'items have been purchased successfullly'},200
+        return {"msg":'items have been purchased successfully'},200
 
 
 
