@@ -92,7 +92,8 @@ class Profile(Resource):
                 return {'msg': 'passwords are inconsistent'}, 409
             else:
 
-
+                if 'cvv' in new_user:
+                    del new_user['cvv']
                 del new_user['confirmed_password']
                 new_user["password"] = hashlib.sha256(new_user["password"].encode("utf-8")).hexdigest()  # encrpt password
                 new_user["card_number"] = hashlib.sha256(new_user["card_number"].encode("utf-8")).hexdigest()  # encrpt card number
