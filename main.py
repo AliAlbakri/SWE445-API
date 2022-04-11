@@ -122,7 +122,7 @@ class ShoopingCart(Resource):
 
 
     def post(self):
-        user_cart = request.get_json()  #   store the json body request
+        user_cart = request.get_json()  #   store the json body request ddddd
 
         items_arr = user_cart['items']
         total_bill_amount = 0
