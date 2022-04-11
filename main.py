@@ -44,6 +44,9 @@ cluster = MongoClient(
 db = cluster['SWE445']
 user_collection = db['Users']
 shopping_cart_collection = db['Shopping_cart']
+items_collection = db['items']
+
+
 
 
 
@@ -145,6 +148,32 @@ class ShoopingCart(Resource):
 
 
 
+class Search(Resource):
+
+    def get(self):
+        search_query = request.args.get('search_query')
+        items_pointer =  items_collection.find({'name':{'$regex':search_query,'$options' : 'i'}})
+        item_arr = []
+        for item in items_pointer:
+            item_arr.append(getJsonProfile(item))
+
+        print(item_arr)
+
+
+        return item_arr,200
+
+
+
+
+
+
+class Items(Resource):
+    def post(self):
+        item_added = request.get_json()
+
+        items_collection.insert_one(item_added)
+
+        return {"msg":"adding completed"},200
 
 
 
@@ -153,10 +182,12 @@ class ShoopingCart(Resource):
 
 
 
+api.add_resource(Search,'/search_items')
+
+api.add_resource(Items,'/add_item')
 
 
 api.add_resource(ShoopingCart,'/checkout')
-
 
 api.add_resource(Login,'/login')
 api.add_resource(Profile,'/sign_up','/get_profile')
@@ -176,6 +207,11 @@ def getProfile(current_user):
             return user_from_db
         else:
             return None
+
+
+
+def getJsonProfile(mongo_user):
+    return json.loads(json_util.dumps(mongo_user))
 
 if __name__ == "__main__":
     app.run(debug=True)
