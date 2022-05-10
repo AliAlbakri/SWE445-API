@@ -1,36 +1,4 @@
-import flask
-import os
-from flask import request, send_from_directory, render_template
-from bson import json_util, ObjectId
-from flask_restful import Api, Resource, reqparse
-from pymongo import MongoClient
-import json
-import datetime
-import hashlib
-from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 
-# these are necessary decorations , do not tech them please
-app = flask.Flask(__name__)
-
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/favicon.png')
-
-
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('endpoints.html')
-
-
-
-# the fun starts here .....
-
-jwt = JWTManager(app) # initialize JWTManager
-app.config['JWT_SECRET_KEY'] = 'Your_Secret_Key'
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1) # define the life span of the token
 
 
 api = Api(app)
@@ -92,8 +60,8 @@ class Profile(Resource):
                 return {'msg': 'passwords are inconsistent'}, 409
             else:
 
-                if 'ccv' in new_user:
-                    del new_user['ccv']
+                if 'cvv' in new_user:
+                    del new_user['cvv']
                 del new_user['confirmed_password']
                 new_user["password"] = hashlib.sha256(new_user["password"].encode("utf-8")).hexdigest()  # encrpt password
                 new_user["card_number"] = hashlib.sha256(new_user["card_number"].encode("utf-8")).hexdigest()  # encrpt card number
